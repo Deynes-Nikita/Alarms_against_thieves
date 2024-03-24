@@ -15,14 +15,12 @@ public class AlarmSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        _alarmArea.InHouses += ChangeStatus;
-        _alarmArea.OutHouses += ChangeStatus;
+        _alarmArea.DetectedMotion += ChangeStatus;
     }
 
     private void OnDisable()
     {
-        _alarmArea.InHouses -= ChangeStatus;
-        _alarmArea.OutHouses -= ChangeStatus;
+        _alarmArea.DetectedMotion -= ChangeStatus;
     }
 
     private void ChangeStatus(Collider collider)
@@ -36,6 +34,6 @@ public class AlarmSystem : MonoBehaviour
 
     private bool TryGetInruder(Collider collider)
     {
-        return collider != null || collider.GetComponent<Player>() == true;
+        return collider != null && collider.TryGetComponent<Player>(out Player component);
     }
 }

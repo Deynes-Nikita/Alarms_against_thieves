@@ -6,18 +6,22 @@ public class AlarmArea : MonoBehaviour
 {
     private Collider _collider;
 
-    public event Action<Collider> InHouses;
-    public event Action<Collider> OutHouses;
+    public event Action<Collider> DetectedMotion;
 
     public Collider Collider => _collider;
 
     private void OnTriggerEnter(Collider other)
     {
-        InHouses?.Invoke(other);
+        DetectMovement(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        OutHouses?.Invoke(other);
+        DetectMovement(other);
+    }
+
+    private void DetectMovement(Collider colliderer)
+    {
+        DetectedMotion?.Invoke(colliderer);
     }
 }
